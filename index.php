@@ -1,48 +1,18 @@
 <?php
+    require_once 'handlers/router.php';
+
     $page = $_GET['page'] ?? 'hello';
     $action = $_GET['action'] ?? 'view';
 
-    $page_path = '';
-    $page_title = '';
-    $show_back_button = false;
+    $pageDetails = getPageDetails($page, $action);
 
-    switch ($page) {
-        case 'finance-goals':
-            if ($action === 'add') {
-                $page_path = './pages/finance-goals/add-finance-goal.php';
-                $page_title = 'Добавяне на финансова цел';
-                $show_back_button = true;
-            } 
-            else if ($action === 'edit') {
-                $page_path = './pages/finance-goals/edit-finance-goal.php';
-                $page_title = 'Редактиране на финансова цел';
-                $show_back_button = true;
-            } else {
-                $page_path = './pages/finance-goals/finance-goals.php';
-                $page_title = 'Финансови цели';
-            }
-            break;
-        case 'my-credits':
-            $page_path = './pages/credits/my-credits.php';
-            $page_title = 'Финансови задължения';
-            break;
-        case 'shared-finances':
-            $page_path = './pages/shared/shared-finances.php';
-            $page_title = 'Споделени финанси';
-            break;
-        case 'profile-settings':
-            $page_path = './pages/settings/profile-settings.php';
-            $page_title = 'Настройки на профила';
-            break;
-        default:
-            $page_path = './pages/hello.php'; // Страница за грешка, ако файлът не съществува
-            $page_title = '';
-            break;
-    }
-
-    include './pages/includes/sidebar.php';
+    $page_path = $pageDetails['page_path'];
+    $page_title = $pageDetails['page_title'];
+    $show_back_button = $pageDetails['show_back_button'];
 
     $is_main_page = true;
+
+    include './pages/includes/sidebar.php';
     include './pages/includes/head.php';
 ?>
 
