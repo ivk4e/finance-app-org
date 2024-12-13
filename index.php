@@ -1,4 +1,9 @@
 <?php
+    if (!isset($_SESSION['user_id'])  && $page !== 'login' && $page !== 'register') {
+        header('Location: pages/login.php');
+        exit;
+    }
+
     require_once 'handlers/router.php';
 
     $page = $_GET['page'] ?? 'hello';
@@ -46,12 +51,12 @@
 
                 <!-- Page Content -->
                 <?php
-                    if (file_exists($page_path)) {
-                        include $page_path;
-                    } else {
-                        include '404.php';
-                    }
-                ?>
+                        if (file_exists($page_path)) {
+                            include $page_path;
+                        } else {
+                            include '404.php';
+                        }
+                    ?>
         </div>
     </div>
     <?php

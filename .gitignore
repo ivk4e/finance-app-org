@@ -1,1 +1,2 @@
-
+// Ignore the database configuration file
+db.php

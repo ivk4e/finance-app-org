@@ -1,18 +1,14 @@
+<?php
+    include 'includes/head.php';
+
+    if (isset($_SESSION['success'])) {
+        echo '<div class="alert alert-success">' . $_SESSION['success'] . '</div>';
+        unset($_SESSION['success']);
+    }
+?>
+
 <!DOCTYPE html>
 <html data-bs-theme="light" lang="en">
-
-<head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
-    <title>loginPagePHP</title>
-    <link rel="stylesheet" href="assets/bootstrap/css/bootstrap.min.css">
-    <link rel="stylesheet" href="assets/css/swiper-icons.css">
-    <link rel="stylesheet" href="assets/css/bs-theme-overrides.css">
-    <link rel="stylesheet" href="assets/css/Articles-Badges-images.css">
-    <link rel="stylesheet" href="assets/css/Navbar-With-Button-icons.css">
-    <link rel="stylesheet" href="assets/css/Simple-Slider-swiper-bundle.min.css">
-    <link rel="stylesheet" href="assets/css/Simple-Slider.css">
-</head>
 
 <body>
     <section class="position-relative py-4 py-xl-5" style="padding-top: 0px;">
@@ -23,7 +19,7 @@
                     <p class="w-lg-50">Curae hendrerit donec commodo hendrerit egestas tempus, turpis facilisis nostra nunc. Vestibulum dui eget ultrices.</p>
                     <div style="display: inline-flex;">
                         <p style="margin-right: 7px;"><em>Все още нямаш акаунт?</em></p>
-                        <p style="color: #564be6;font-size: 16px;">Регистрирай се сега!</p>
+                        <p style="color: #564be6;font-size: 16px;"><a href='./registration.php' style='text-decoration: none'>Регистрирай се сега!</a></p>
                     </div>
                 </div>
             </div>
@@ -34,9 +30,9 @@
                             <div class="bs-icon-xl bs-icon-circle bs-icon-primary bs-icon my-4" style="background: linear-gradient(0deg, #564be6, #8f56f4 116%);"><svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" fill="currentColor" viewBox="0 0 16 16" class="bi bi-person">
                                     <path d="M8 8a3 3 0 1 0 0-6 3 3 0 0 0 0 6m2-3a2 2 0 1 1-4 0 2 2 0 0 1 4 0m4 8c0 1-1 1-1 1H3s-1 0-1-1 1-4 6-4 6 3 6 4m-1-.004c-.001-.246-.154-.986-.832-1.664C11.516 10.68 10.289 10 8 10c-2.29 0-3.516.68-4.168 1.332-.678.678-.83 1.418-.832 1.664z"></path>
                                 </svg></div>
-                            <form class="text-center" method="post">
-                                <div class="mb-3"><input class="form-control" type="email" name="email" placeholder="Email"></div>
-                                <div class="mb-3"><input class="form-control" type="password" name="password" placeholder="Password"></div>
+                            <form class="text-center" method="POST" action="../handlers/handler_login.php">
+                                <div class="mb-3"><input class="form-control" type="email" id="email" name="email" placeholder="Email"></div>
+                                <div class="mb-3"><input class="form-control" type="password" id="password" name="password" placeholder="Password"></div>
                                 <div class="mb-3"><button class="btn btn-primary d-block w-100" type="submit" style="background: linear-gradient(69deg, #564be6, #8f56f4);">Влез</button></div>
                                 <p class="text-muted" style="--bs-primary: #564be6;--bs-primary-rgb: 86,75,230;position: relative;font-size: 12px;text-align: right;backdrop-filter: opacity(1);-webkit-backdrop-filter: opacity(1);">Забравена парола?</p>
                             </form>

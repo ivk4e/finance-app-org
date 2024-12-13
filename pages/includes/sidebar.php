@@ -18,7 +18,9 @@
                         </ul>
                     </div>
                     <div>
-                        <hr><button class="btn btn-danger" id="exit-btn" type="button" style="width: 242px;">Изход</button>
+                        <a href="/finance-app/pages/logout.php" style="text-decoration: none;">
+                            <hr><button class="btn btn-danger" id="exit-btn" type="button" style="width: 242px;">Изход</button>
+                        </a>
                     </div>
                 </div>
             </div>
