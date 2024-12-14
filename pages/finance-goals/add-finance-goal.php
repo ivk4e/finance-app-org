@@ -29,7 +29,7 @@
                             <div class="col-md-6 col-xl-4">
                                 <div class="card mb-5">
                                     <div class="card-body d-flex flex-column align-items-center">
-                                        <form class="text-center" method="post" action="handlers/handler_add_finance_goals.php">
+                                        <form class="text-center" method="post" action="handlers/handlers_finance_goals/handler_add_finance_goals.php">
                                             <div class="mb-3" style="margin-top: 16px;"><label class="form-label d-xxl-flex" style="width: 225px;margin-bottom: 1px;font-size: 14px;text-align: left;">Тип цел</label>
                                                 <div class="dropdown">
                                                     <select class="form-select" name="type_id" style="text-align: left;color: var(--bs-secondary);padding-right: 12px;border-color: rgb(222,226,230);">

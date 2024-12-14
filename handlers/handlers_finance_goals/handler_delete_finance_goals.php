@@ -1,15 +1,15 @@
 <?php 
-    require_once '../db.php';
+    require_once '../../db.php';
 
     if (!isset($_GET['id'])) {
-        header('Location: ../?page=finance-goals');
+        header('Location: ../../?page=finance-goals');
         exit;
     }
 
     $goalId = intval($_GET['id']);
     if ($goalId <= 0) {
         $_SESSION['error'] = 'Невалиден идентификатор.';
-        header('Location: ../?page=finance-goals');
+        header('Location: ../../?page=finance-goals');
         exit;
     }
 
@@ -24,6 +24,6 @@
     }
 
     // Пренасочване обратно към списъка с цели
-    header('Location: ../?page=finance-goals');
+    header('Location: ../../?page=finance-goals');
     exit;
 ?>

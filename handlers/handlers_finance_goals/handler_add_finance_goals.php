@@ -1,5 +1,5 @@
 <?php 
-require_once('../db.php');
+require_once('../../db.php');
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $goal_type_id = $_POST['type_id'] ?? null;
@@ -9,13 +9,13 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
     if (empty($goal_type_id) || empty($targetDate) || empty($goalName) || empty($targetAmount)) {
         $_SESSION['error'] = 'Всички полета са задължителни.';
-        header('Location: ../?page=finance-goals&action=add');
+        header('Location: ../../?page=finance-goals&action=add');
         exit;
     }
 
     if (!is_numeric($targetAmount) || $targetAmount < 0) {
         $_SESSION['error'] = 'Въведете валидна целева сума.';
-        header('Location: ../?page=finance-goals&action=add');
+        header('Location: ../../?page=finance-goals&action=add');
         exit;
     }
 
@@ -23,7 +23,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
     if (empty($userId)) {
         $_SESSION['error'] = 'Невалиден потребител.';
-        header('Location: ../?page=finance-goals&action=add');
+        header('Location: ../../?page=finance-goals&action=add');
         exit;
     }
 
@@ -34,15 +34,15 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $stmt->execute([$goalName, $goal_type_id, $creationDate, $targetDate, $targetAmount, $userId, 1]);
 
         $_SESSION['success'] = 'Успешно добавена финансова цел.';
-        header('Location: ../?page=finance-goals');
+        header('Location: ../../?page=finance-goals');
         exit;
     } catch (PDOException $e) {
         $_SESSION['error'] = 'Невалиден потребител.';
-        header('Location: ../?page=finance-goals&action=add');
+        header('Location: ../../?page=finance-goals&action=add');
         exit;
     }
 } else {
-    header('Location: ../?page=finance-goals&action=add');
+    header('Location: ../../?page=finance-goals&action=add');
     exit;
 }
 
