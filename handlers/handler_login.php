@@ -45,6 +45,15 @@
             $_SESSION['user_date_of_birth'] = $user['date_of_birth'];
             $_SESSION['user_created_at'] = $user['created_at'];
 
+            //get infomation from the login_activity table
+            $stmt = $pdo->prepare('SELECT * FROM login_activity WHERE user_id = ? ORDER BY login_date DESC');
+            $stmt->execute([$user['user_id']]);
+            $login_activity = $stmt->fetch();
+            
+            $_SESSION['user_last_login'] = $login_activity['login_date'];
+            $_SESSION['user_ip_address'] = $login_activity['ip_address'];
+            $_SESSION['user_device_info'] = $login_activity['device_info'];
+
             header('Location: ../index.php');
             exit;
         } catch (PDOException $e) {
