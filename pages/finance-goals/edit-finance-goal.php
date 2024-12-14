@@ -68,7 +68,7 @@
                             <div class="col-md-6 col-xl-4">
                                 <div class="card mb-5">
                                     <div class="card-body d-flex flex-column align-items-center">
-                                        <form class="text-center" method="post" action="handlers/handler_edit_finance_goal.php">
+                                        <form class="text-center" method="post" action="handlers/handlers_finance_goals/handler_edit_finance_goal.php">
                                             <div class="mb-3"><label class="form-label d-xxl-flex" style="width: 207px;margin-bottom: 1px;font-size: 14px;text-align: left;margin-top: 16px;">Тип цел</label>
                                             <input type="hidden" name="goal_id" value="<?php echo htmlspecialchars($goal['goal_id']); ?>">
                                             <div class="dropdown">
@@ -84,7 +84,7 @@
                                             </div>
                                             <div class="mb-3">
                                                 <label class="form-label d-xxl-flex" style="width: 207px;margin-bottom: 1px;font-size: 14px;text-align: left;">Целева дата</label>
-                                                <input class="form-control" type="date" name="target_name" value="<?php echo htmlspecialchars($goal['target_date']); ?>" style="border-color: rgb(222,226,230);color: var(--bs-secondary);"></div>
+                                                <input class="form-control" type="date" name="target_date" value="<?php echo htmlspecialchars($goal['target_date']); ?>" style="border-color: rgb(222,226,230);color: var(--bs-secondary);"></div>
                                             <div style="margin-bottom: 16px;">
                                                 <label class="form-label d-xxl-flex" style="width: 207px;margin-bottom: 1px;font-size: 14px;text-align: left;">Наименование</label>
                                                 <input class="form-control" name="goal_name" value="<?php echo htmlspecialchars($goal['goal_name']); ?>" style="text-align: left;"></div>
@@ -108,7 +108,7 @@
                                             </div>
                                             <div class="mb-3"><button class="btn btn-warning d-block w-100" type="submit">Запазване</button>
                                                 <div>
-                                                    <a href="handlers/handler_delete_finance_goals.php?id=<?php echo $goal['goal_id']; ?>" style="text-decoration: none;" onclick="return confirm('Сигурни ли сте, че искате да изтриете тази цел?');"><p style="font-style: italic; color: rgb(255,15,0);margin-top: 10px;">Изтриване на цел</p>
+                                                    <a href="handlers/handlers_finance_goals/handler_delete_finance_goals.php?id=<?php echo $goal['goal_id']; ?>" style="text-decoration: none;" onclick="return confirm('Сигурни ли сте, че искате да изтриете тази цел?');"><p style="font-style: italic; color: rgb(255,15,0);margin-top: 10px;">Изтриване на цел</p>
                                                 </div>
                                             </div>
                                         </form>

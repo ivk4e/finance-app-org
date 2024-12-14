@@ -96,7 +96,7 @@
                                     <!--  -->
                                     <div class="d-flex justify-content-between gap-2">
                                         <a href="?page=finance-goals&action=edit&id=<?php echo $goal['goal_id']; ?>" class="btn btn-sm btn-warning w-60">Редактирай</a>
-                                        <a href="handlers/handler_delete_finance_goals.php?id=<?php echo $goal['goal_id']; ?>" class="btn btn-sm btn-danger w-50" onclick="return confirm('Сигурни ли сте, че искате да изтриете тази цел?');">Изтрий</a>
+                                        <a href="handlers/handlers_finance_goals/handler_delete_finance_goals.php?id=<?php echo $goal['goal_id']; ?>" class="btn btn-sm btn-danger w-50" onclick="return confirm('Сигурни ли сте, че искате да изтриете тази цел?');">Изтрий</a>
                                     </div>
                                 </td>
                             </tr>

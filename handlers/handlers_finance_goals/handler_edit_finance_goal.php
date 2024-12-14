@@ -1,20 +1,38 @@
 <?php 
-    require_once('../db.php');
+    require_once('../../db.php');
     
     try {
         $goalId = intval($_POST['goal_id']); 
         $typeId = intval($_POST['type_id']);
         $goalName = trim($_POST['goal_name']);
-        $targetName = trim($_POST['target_name']);
+        $targetDate = date('Y-m-d', strtotime($_POST['target_date']));
         $targetAmount = floatval($_POST['target_amount']);
         $savedAmount = floatval($_POST['saved_amount']);
         $statusId = intval($_POST['status_id']);
         
         $lastModified = date('Y-m-d H:i:s');
     
-        if (empty($goalName) || empty($targetName) || empty($targetAmount) || empty($savedAmount)) {
+        if (empty($goalName) || empty($targetAmount)) {
             $_SESSION['error'] = 'Всички полета са задължителни.';
-            header('Location: ../?page=finance-goals&action=edit&id=' . $goalId);
+            header('Location: ../../?page=finance-goals&action=edit&id=' . $goalId);
+            exit;
+        }
+
+        if (empty($_POST['target_date']) || !strtotime($_POST['target_date'])) {
+            $_SESSION['error'] = 'Въведете валидна целева дата.';
+            header('Location: ../../?page=finance-goals&action=edit&id=' . $goalId);
+            exit;
+        }
+
+        if (!is_numeric($targetAmount) || $targetAmount < 0) {
+            $_SESSION['error'] = 'Въведете валидна целева сума.';
+            header('Location: ../../?page=finance-goals&action=edit&id=' . $goalId);
+            exit;
+        }
+
+        if (!is_numeric($savedAmount) || $savedAmount < 0) {
+            $_SESSION['error'] = 'Въведете валидна спестена сума.';
+            header('Location: ../../?page=finance-goals&action=edit&id=' . $goalId);
             exit;
         }
 
@@ -40,7 +58,7 @@
         $dbTypeId = intval($goal['goal_type_id']);
         $dbTargetAmount = floatval($goal['target_amount']);
         $dbSavedAmount = floatval($goal['saved_amount']);
-        $dbTargetName = trim($goal['target_date']);
+        $dbTargetDate = date('Y-m-d', strtotime($goal['target_date']));
         $dbStatusId = intval($goal['status_id']);
 
         if (
@@ -48,12 +66,12 @@
             $dbTypeId === $typeId &&
             $dbTargetAmount === $targetAmount &&
             $dbSavedAmount === $savedAmount &&
-            $dbTargetName === $targetName &&
+            $dbTargetDate === $targetDate &&
             $dbStatusId === $statusId
         ) {
             // Няма промени
             $_SESSION['error'] = 'Няма направени промени.';
-            header('Location: ../?page=finance-goals&action=edit&id=' . $goalId);
+            header('Location: ../../?page=finance-goals&action=edit&id=' . $goalId);
             exit;
         }
 
@@ -76,18 +94,18 @@
             ':goal_type_id' => $typeId,
             ':target_amount' => $targetAmount,
             ':saved_amount' => $savedAmount,
-            ':target_date' => $targetName,
+            ':target_date' => $targetDate,
             ':status_id' => $statusId,
             ':last_modified' => $lastModified,
             ':goal_id' => $goalId,
         ]);
     
         $_SESSION['success'] = 'Целта беше успешно актуализирана.';
-        header('Location: ../?page=finance-goals&action=edit&id=' . $goalId);
+        header('Location: ../../?page=finance-goals&action=edit&id=' . $goalId);
         exit;
     } catch (PDOException $e) {
         $_SESSION['error'] = 'Грешка при актуализация: ' . $e->getMessage();
-        header('Location: ../?page=finance-goals&action=edit&id=' . $goalId);
+        header('Location: ../../?page=finance-goals&action=edit&id=' . $goalId);
         exit;
     }
     
