@@ -19,6 +19,13 @@
 
     include './pages/includes/sidebar.php';
     include './pages/includes/head.php';
+
+    $flash_msg = [];
+    if (isset($_SESSION['flash_msg'])) {
+        $flash_msg = $_SESSION['flash_msg'];
+        unset($_SESSION['flash_msg']);
+    }
+
 ?>
 
 <!DOCTYPE html>
