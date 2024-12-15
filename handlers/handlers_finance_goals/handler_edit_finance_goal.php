@@ -30,13 +30,18 @@
             exit;
         }
 
+        if ($savedAmount > $targetAmount) {
+            $_SESSION['error'] = 'Спестената сума не може да бъде по-голяма от целевата сума.';
+            header('Location: ../../?page=finance-goals&action=edit&id=' . $goalId);
+            exit;
+        }
+
         if (!is_numeric($savedAmount) || $savedAmount < 0) {
             $_SESSION['error'] = 'Въведете валидна спестена сума.';
             header('Location: ../../?page=finance-goals&action=edit&id=' . $goalId);
             exit;
         }
 
-        //check if the given fields are the same as the ones in the database
         $stmt = $pdo->prepare('
             SELECT 
                 goal_name,

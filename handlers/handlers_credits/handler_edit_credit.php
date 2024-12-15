@@ -30,13 +30,18 @@
             exit;
         }
 
+        if ($paidAmount > $targetAmount) {
+            $_SESSION['error'] = 'Платената сума не може да бъде по-голяма от целевата сума.';
+            header('Location: ../../?page=my-credits&action=edit&id=' . $liabilityId);
+            exit;
+        }
+
         if (!is_numeric($paidAmount) || $paidAmount < 0) {
             $_SESSION['error'] = 'Въведете валидна платена сума.';
             header('Location: ../../?page=my-credits&action=edit&id=' . $liabilityId);
             exit;
         }
 
-        //check if the given fields are the same as the ones in the database
         $stmt = $pdo->prepare('
             SELECT 
                 liability_name,
@@ -53,7 +58,6 @@
         $stmt->execute([':liability_id' => $liabilityId]);
         $liability = $stmt->fetch();
 
-        // converting the fields to the same type as the ones in the database
         $dbLiabilityName = trim($liability['liability_name']);
         $dbTypeId = intval($liability['liability_type_id']);
         $dbTargetAmount = floatval($liability['target_amount']);
