@@ -1,7 +1,8 @@
 <div>
-        <footer class="text-center bg-dark">
+        <footer class="text-center bg-dark" style="position: fixed; bottom: 0; width: 100%;">
             <div class="container text-white py-4 py-lg-5">
                 <ul class="list-inline">
+                    <li class="list-inline-item list-inline-item me-4"><a class="link-light" href="?">Табло за управление</a></li>
                     <li class="list-inline-item list-inline-item me-4"><a class="link-light" href="?page=finance-goals">Финансови цели</a></li>
                     <li class="list-inline-item list-inline-item me-4"><a class="link-light" href="?page=my-credits">Финансови задължения</a></li>
                     <li class="list-inline-item list-inline-item"><a class="link-light" href="?page=shared-finances">Споделени финанси</a></li>
