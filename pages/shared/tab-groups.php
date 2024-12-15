@@ -3,11 +3,6 @@
 
     $userId = $_SESSION['user_id'] ?? null;
     
-    if (!$userId) {
-        die('Грешка: Невалиден потребител. Уверете се, че сте влезли в системата.');
-    }
-
-
     try {
         $stmt = $pdo->prepare('
         SELECT 

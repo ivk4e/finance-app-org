@@ -31,18 +31,12 @@ $currentTab = $_GET['tab'] ?? 'groups';
                             <a class="nav-link <?php echo $currentTab === 'balances' ? 'active' : ''; ?>" 
                                href="?page=shared-finances&tab=balances">Разпределяне на баланс</a>
                         </li>
-                        <li class="nav-item" role="presentation">
-                            <a class="nav-link <?php echo $currentTab === 'transactions' ? 'active' : ''; ?>" 
-                               href="?page=shared-finances&tab=transactions">История на транзакции</a>
-                        </li>
                     </ul>
                     <div class="tab-content">
                         <?php if ($currentTab === 'groups'): ?>
                             <?php include 'tab-groups.php'; ?>
                         <?php elseif ($currentTab === 'balances'): ?>
                             <?php include 'tab-balances.php'; ?>
-                        <?php elseif ($currentTab === 'transactions'): ?>
-                            <?php include 'tab-transactions.php'; ?>
                         <?php else: ?>
                             <p>Невалиден таб!</p>
                         <?php endif; ?>
