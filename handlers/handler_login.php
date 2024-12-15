@@ -21,7 +21,7 @@
         }
 
         try {
-            $stmt = $pdo->prepare('SELECT * FROM users WHERE email = ?');
+            $stmt = $pdo->prepare('SELECT * FROM users WHERE email = ? AND is_deleted = 1');
             $stmt->execute([$email]);
             if ($stmt->rowCount() === 0) {
                 header('Location: ../pages/login.php?error=Invalid email or password.');
