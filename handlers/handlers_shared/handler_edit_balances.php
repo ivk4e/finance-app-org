@@ -34,6 +34,18 @@
             exit;
         }
 
+        //check if there are no updated fields
+        $stmt = $pdo->prepare('SELECT * FROM shared_balances WHERE balance_id = ?');
+        $stmt->execute([$balance_id]);
+
+        $balance = $stmt->fetch(PDO::FETCH_ASSOC);
+
+        if ($balance['group_id'] == $group_id && $balance['balance_date'] == $dateBalance && $balance['amount'] == $amount && $balance['saved_amount'] == $saved_amount && $balance['purpose'] == $purpose) {
+            $_SESSION['error'] = 'Няма направени промени.';
+            header('Location: ../../?page=shared-finances&tab=balances');
+            exit;
+        }
+
         try {
             $modifiedDate = date('Y-m-d H:i:s');
 
