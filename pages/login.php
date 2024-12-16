@@ -16,7 +16,7 @@
             <div class="row mb-5" style="margin-top: 0;">
                 <div class="col-md-8 col-xl-6 text-center mx-auto">
                     <h2>Влез</h2>
-                    <p class="w-lg-50">Curae hendrerit donec commodo hendrerit egestas tempus, turpis facilisis nostra nunc. Vestibulum dui eget ultrices.</p>
+                    <p class="w-lg-50">Влезте в профила си, за да управлявате своите финанси, цели и задължения с лекота</p>
                     <div style="display: inline-flex;">
                         <p style="margin-right: 7px;"><em>Все още нямаш акаунт?</em></p>
                         <p style="color: #564be6;font-size: 16px;"><a href='./registration.php' style='text-decoration: none'>Регистрирай се сега!</a></p>
@@ -34,7 +34,6 @@
                                 <div class="mb-3"><input class="form-control" type="email" id="email" name="email" placeholder="Email"></div>
                                 <div class="mb-3"><input class="form-control" type="password" id="password" name="password" placeholder="Password"></div>
                                 <div class="mb-3"><button class="btn btn-primary d-block w-100" type="submit" style="background: linear-gradient(69deg, #564be6, #8f56f4);">Влез</button></div>
-                                <p class="text-muted" style="--bs-primary: #564be6;--bs-primary-rgb: 86,75,230;position: relative;font-size: 12px;text-align: right;backdrop-filter: opacity(1);-webkit-backdrop-filter: opacity(1);">Забравена парола?</p>
                             </form>
                         </div>
                     </div>

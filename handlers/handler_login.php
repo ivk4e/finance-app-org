@@ -34,7 +34,6 @@
                 exit;
             }
 
-            //update the login_activity page for user_id, login_time, ip_address, device_info
             $stmt = $pdo->prepare('INSERT INTO login_activity (user_id, login_date, ip_address, device_info) VALUES (?, ?, ?, ?)');
             $stmt->execute([$user['user_id'], date('Y-m-d H:i:s'), $_SERVER['REMOTE_ADDR'], $_SERVER['HTTP_USER_AGENT']]);
 
@@ -45,7 +44,6 @@
             $_SESSION['user_date_of_birth'] = $user['date_of_birth'];
             $_SESSION['user_created_at'] = $user['created_at'];
 
-            //get infomation from the login_activity table
             $stmt = $pdo->prepare('SELECT * FROM login_activity WHERE user_id = ? ORDER BY login_date DESC');
             $stmt->execute([$user['user_id']]);
             $login_activity = $stmt->fetch();
