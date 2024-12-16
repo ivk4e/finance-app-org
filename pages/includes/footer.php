@@ -1,5 +1,5 @@
 <div>
-        <footer class="text-center bg-dark" style="position: fixed; bottom: 0; width: 100%;">
+        <footer class="text-center bg-dark" style="position: absolute; top: 1200px; width: 100%;">
             <div class="container text-white py-4 py-lg-5">
                 <ul class="list-inline">
                     <li class="list-inline-item list-inline-item me-4"><a class="link-light" href="?">Табло за управление</a></li>
