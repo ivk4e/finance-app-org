@@ -1,4 +1,5 @@
 <?php 
+    session_start();
     require_once('../db.php');
 
     if ($_SERVER['REQUEST_METHOD'] === 'POST') {
@@ -6,16 +7,19 @@
         $password = $_POST['password'];
 
         if (empty($email) || empty($password)) {
+            $_SESSION['error'] = 'Всички полета са задължителни.';
             header('Location: ../pages/login.php?error=Not valid data.');
             exit;
         }
 
         if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
+            $_SESSION['error'] = 'Невалиден имейл адрес.';
             header('Location: ../pages/login.php?error=Invalid email.');
             exit;
         }
 
         if (strlen($password) < 6) {
+            $_SESSION['error'] = 'Паролата трябва да е поне 6 символа.';
             header('Location: ../pages/login.php?error=Password must be at least 6 characters long.');
             exit;
         }
@@ -24,12 +28,14 @@
             $stmt = $pdo->prepare('SELECT * FROM users WHERE email = ? AND is_deleted = 1');
             $stmt->execute([$email]);
             if ($stmt->rowCount() === 0) {
+                $_SESSION['error'] = 'Невалиден имейл или парола.';
                 header('Location: ../pages/login.php?error=Invalid email or password.');
                 exit;
             }
 
             $user = $stmt->fetch();
             if (!password_verify($password, $user['password_hash'])) {
+                $_SESSION['error'] = 'Невалиден имейл или парола.';
                 header('Location: ../pages/login.php?error=Invalid email or password.');
                 exit;
             }
@@ -55,11 +61,13 @@
             header('Location: ../index.php');
             exit;
         } catch (PDOException $e) {
+            $_SESSION['error'] = 'Грешка при връзка с базата данни.';
             header('Location: ../pages/login.php?error=Database error.');
             exit;
         }
 
     } else {
+        $_SESSION['error'] = 'Невалидна заявка.';
         header('Location: ../pages/login.php');
         exit;
     }

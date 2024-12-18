@@ -3,8 +3,8 @@
 try {
     $host = '127.0.0.1';
     $db   = 'finance_app';
-    $user = 'root';
-    $pass = '';
+    $user = 'finance_user';
+    $pass = 'finance123@';
     $charset = 'utf8mb4';
 
     $dsn = "mysql:host=$host;dbname=$db;charset=$charset";
