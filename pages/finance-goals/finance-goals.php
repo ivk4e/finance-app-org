@@ -70,11 +70,28 @@
                 <tbody>
                     <?php if (!empty($goals)): ?>
                         <?php foreach ($goals as $goal): ?>
+                            <?php
+                                $target_date = new DateTime($goal['target_date']);
+                                $current_date = new DateTime();
+                                $remaining_days = $current_date->diff($target_date)->days + 1;
+                                $is_close_to_target = $target_date > $current_date && $remaining_days <= 5;
+                            ?>
                             <tr>
                                 <td><?php echo htmlspecialchars($goal['goal_created_at']); ?></td>
                                 <td><?php echo htmlspecialchars($goal['goal_type']); ?></td>
                                 <td><?php echo htmlspecialchars($goal['goal_name']); ?></td>
-                                <td><?php echo htmlspecialchars($goal['target_date']); ?></td>
+                                <td>
+                                    <div class="d-flex align-items-center">
+                                        <span><?php echo htmlspecialchars($goal['target_date']); ?></span>
+                                        <?php if ($is_close_to_target): ?>
+                                            <span 
+                                            class="text-danger ms-2" 
+                                            style="cursor: pointer;"
+                                            onclick="showInfoModal(<?php echo $remaining_days; ?>);">&#10071;
+                                            </span>
+                                        <?php endif; ?>
+                                    </div>
+                                </td>
                                 <td><?php echo number_format($goal['target_amount'], 2); ?> лв</td>
                                 <td><?php echo number_format($goal['saved_amount'], 2); ?> лв</td>
                                 <td><?php echo number_format($goal['remaining_amount'], 2); ?> лв</td>
@@ -112,3 +129,30 @@
         </div>
     </div>
 </div>
+
+<!-- Bootstrap Modal -->
+<div class="modal fade" id="infoModal" tabindex="-1" aria-labelledby="infoModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="infoModalLabel">Информация за задължението</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Затвори"></button>
+            </div>
+            <div class="modal-body">
+                Остават <span id="remainingDays"></span> дни до целевата дата!
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Затвори</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+function showInfoModal(remainingDays) {
+    var modalElement = new bootstrap.Modal(document.getElementById('infoModal'));
+    document.getElementById('remainingDays').innerText = remainingDays;
+    modalElement.show();
+}
+
+</script>

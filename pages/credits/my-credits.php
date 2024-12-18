@@ -1,7 +1,6 @@
 <?php 
     require_once 'db.php';
 
-    //tables are liability_types and financial_liabilities
     $stmt = $pdo->prepare('
         SELECT 
             fl.created_date,
@@ -30,7 +29,8 @@
     $stmt->execute([$_SESSION['user_id']]);
     $credits = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
-    //handle errors and success messages from the session
+    
+
     if (isset($_SESSION['error'])) {
         echo '<div class="alert alert-danger" role="alert">' . $_SESSION['error'] . '</div>';
         unset($_SESSION['error']);
@@ -70,11 +70,29 @@
                 <tbody>
                     <?php if (!empty($credits)): ?>
                         <?php foreach ($credits as $credit): ?>
+                            <?php
+                                $target_date = new DateTime($credit['target_date']);
+                                $current_date = new DateTime();
+                                $remaining_days = $current_date->diff($target_date)->days + 1;
+                                $is_close_to_target = $target_date > $current_date && $remaining_days <= 5;
+                            ?>
+
                             <tr>
                                 <td><?php echo htmlspecialchars($credit['created_date']) ?></td>
                                 <td><?php echo htmlspecialchars($credit['liability_name']) ?></td>
                                 <td><?php echo htmlspecialchars($credit['target_amount']) ?></td>
-                                <td><?php echo htmlspecialchars($credit['target_date']) ?></td>
+                                <td>
+                                    <div class="d-flex align-items-center">
+                                        <span><?php echo htmlspecialchars($credit['target_date']); ?></span>
+                                        <?php if ($is_close_to_target): ?>
+                                            <span 
+                                            class="text-danger ms-2" 
+                                            style="cursor: pointer;"
+                                            onclick="showInfoModal(<?php echo $remaining_days; ?>);">&#10071;
+                                            </span>
+                                        <?php endif; ?>
+                                    </div>
+                                </td>
                                 <td><?php echo number_format($credit['paid_amount'], 2) ?> лв</td>
                                 <td><?php echo number_format($credit['remaining_amount'], 2) ?> лв</td>
                                 <td><?php echo htmlspecialchars($credit['last_modified']); ?></td>
@@ -109,3 +127,30 @@
         </div>
     </div>
 </div>
+
+<!-- Bootstrap Modal -->
+<div class="modal fade" id="infoModal" tabindex="-1" aria-labelledby="infoModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="infoModalLabel">Информация за задължението</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Затвори"></button>
+            </div>
+            <div class="modal-body">
+                Остават <span id="remainingDays"></span> дни до целевата дата!
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Затвори</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+function showInfoModal(remainingDays) {
+    var modalElement = new bootstrap.Modal(document.getElementById('infoModal'));
+    document.getElementById('remainingDays').innerText = remainingDays;
+    modalElement.show();
+}
+
+</script>
