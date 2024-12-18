@@ -87,7 +87,7 @@ try {
                     <p class="card-text">Не си близо до крайния срок за твоите цели.</p>
                     <a href="?page=finance-goals" style="text-decoration:none;">Преглед на целите &rarr;</a>
                 <?php else: ?>
-                    <h2 class><?php echo $upcoming_goals; ?></h2>
+                    <h2 class="text-warning"><?php echo $upcoming_goals; ?></h2>
                     <p class="card-text">Брой цели, които очакват твоето действие.</p>
                     <a href="?page=finance-goals" style="text-decoration:none;">Виж повече &rarr;</a>
                 <?php endif; ?>
@@ -114,3 +114,5 @@ try {
         </div>
     </div>
 </div>
+
+<script src="pages/notifications.js"></script>
