@@ -71,10 +71,18 @@
                     <?php if (!empty($credits)): ?>
                         <?php foreach ($credits as $credit): ?>
                             <?php
-                                $target_date = new DateTime($credit['target_date']);
-                                $current_date = new DateTime();
-                                $remaining_days = $current_date->diff($target_date)->days + 1;
-                                $is_close_to_target = $target_date > $current_date && $remaining_days <= 5;
+                                 $target_date = new DateTime($credit['target_date']);
+                                 $current_date = new DateTime();
+                                 
+                                 if ($target_date > $current_date) {
+                                     $remaining_days = $current_date->diff($target_date)->days + 1;
+                                     $is_close_to_target = $remaining_days <= 5 && $credit['status_id'] == 1;
+                                     $is_expired = false;
+                                 } else {
+                                     $expired_days = $current_date->diff($target_date)->days;
+                                     $is_close_to_target = false;
+                                     $is_expired = true;
+                                 }
                             ?>
 
                             <tr>
@@ -83,14 +91,18 @@
                                 <td><?php echo htmlspecialchars($credit['target_amount']) ?></td>
                                 <td>
                                     <div class="d-flex align-items-center">
-                                        <span><?php echo htmlspecialchars($credit['target_date']); ?></span>
-                                        <?php if ($is_close_to_target): ?>
-                                            <span 
-                                            class="text-danger ms-2" 
-                                            style="cursor: pointer;"
-                                            onclick="showInfoModal(<?php echo $remaining_days; ?>);">&#10071;
-                                            </span>
-                                        <?php endif; ?>
+                                    <span><?php echo htmlspecialchars($credit['target_date']); ?></span>
+                                    <?php if ($is_close_to_target): ?>
+                                        <span 
+                                        class="text-danger ms-2" 
+                                        style="cursor: pointer;"
+                                        onclick="showInfoModal(<?php echo $remaining_days; ?>);">&#10071;
+                                        </span>
+                                    <?php elseif ($is_expired): ?>
+                                        <span class="text-warning ms-2" style="cursor: pointer;">
+                                            Изтекла преди <?php echo $expired_days; ?> дни
+                                        </span>
+                                    <?php endif; ?>
                                     </div>
                                 </td>
                                 <td><?php echo number_format($credit['paid_amount'], 2) ?> лв</td>

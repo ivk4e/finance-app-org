@@ -73,8 +73,16 @@
                             <?php
                                 $target_date = new DateTime($goal['target_date']);
                                 $current_date = new DateTime();
-                                $remaining_days = $current_date->diff($target_date)->days + 1;
-                                $is_close_to_target = $target_date > $current_date && $remaining_days <= 5;
+                                
+                                if ($target_date > $current_date) {
+                                    $remaining_days = $current_date->diff($target_date)->days + 1;
+                                    $is_close_to_target = $remaining_days <= 5 && $goal['status_id'] == 1;
+                                    $is_expired = false;
+                                } else {
+                                    $expired_days = $current_date->diff($target_date)->days;
+                                    $is_close_to_target = false;
+                                    $is_expired = true;
+                                }
                             ?>
                             <tr>
                                 <td><?php echo htmlspecialchars($goal['goal_created_at']); ?></td>
@@ -82,12 +90,16 @@
                                 <td><?php echo htmlspecialchars($goal['goal_name']); ?></td>
                                 <td>
                                     <div class="d-flex align-items-center">
-                                        <span><?php echo htmlspecialchars($goal['target_date']); ?></span>
+                                    <span><?php echo htmlspecialchars($goal['target_date']); ?></span>
                                         <?php if ($is_close_to_target): ?>
                                             <span 
                                             class="text-danger ms-2" 
                                             style="cursor: pointer;"
                                             onclick="showInfoModal(<?php echo $remaining_days; ?>);">&#10071;
+                                            </span>
+                                        <?php elseif ($is_expired): ?>
+                                            <span class="text-warning ms-2" style="cursor: pointer;">
+                                                Изтекла преди <?php echo $expired_days; ?> дни
                                             </span>
                                         <?php endif; ?>
                                     </div>
